@@ -1,4 +1,8 @@
 import dayjs from 'dayjs';
+import { DATE_FORMAT } from '../const';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 export const checkExpire = (date: string) => {
   const dateNow = dayjs();
@@ -6,3 +10,4 @@ export const checkExpire = (date: string) => {
 };
 
 
+export const validateDate = (date: string) => dayjs(date, DATE_FORMAT, true).isValid();

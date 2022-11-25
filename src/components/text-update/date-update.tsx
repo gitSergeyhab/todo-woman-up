@@ -10,7 +10,5 @@ type TextUpdateProps = {
 export const TextUpdate = ({text, onChange, classes, placeholder} : TextUpdateProps) => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (evt) => onChange(evt.currentTarget.value);
 
-  return (
-    <input type='text' className={classes} value={text} onChange={handleChange} placeholder={placeholder} required/>
-  );
+  return <input type='text' className={classes} value={text} onChange={handleChange} placeholder={placeholder} required/>;
 };

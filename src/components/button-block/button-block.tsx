@@ -1,5 +1,6 @@
 import { TaskState } from '../../const';
 
+
 type ButtonBlockProps = {
   type: TaskState;
   onTurnClick: () => void | undefined;
@@ -16,7 +17,7 @@ export const ButtonBlock = ({type, onTurnClick} : ButtonBlockProps) => {
         >
           Изменить
         </button>
-        <button type='button' className='task__button task__button--red'>
+        <button type='submit' className='task__button task__button--red'>
           Удалить
         </button>
       </div>
@@ -40,7 +41,5 @@ export const ButtonBlock = ({type, onTurnClick} : ButtonBlockProps) => {
     <div className='task__buttons'>
       <button type='submit' className='task__button task__button--green'>Создать</button>
     </div>
-
   );
-
 };

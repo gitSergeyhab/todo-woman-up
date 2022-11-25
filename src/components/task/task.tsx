@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { StatusTask, TaskState } from '../../const';
-import { TaskType } from '../../types/types';
-import { getClassNames, getStatusTask } from '../../utils/util';
 import { TaskMutate } from '../task-mutate/task-mutate';
 import { TaskRead } from '../task-read/task-read';
+import { getClassNames, getStatusTask } from '../../utils/util';
+import { TaskType } from '../../types/types';
+import { StatusTask, TaskState } from '../../const';
 
 import './task.less';
 
@@ -17,7 +17,6 @@ export const Task = ({task} : {task: TaskType}) => {
 
   const {isFinished, date} = task;
 
-
   const statusText = getStatusTask({isFinished, date});
 
   const classes = getClassNames('task', [
@@ -30,6 +29,4 @@ export const Task = ({task} : {task: TaskType}) => {
     <TaskMutate task={task} onTurnToRead={onTurnToRead}/>;
 
   return <li className={classes}>{currentTask}</li>;
-
-
 };

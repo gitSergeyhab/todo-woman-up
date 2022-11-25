@@ -21,11 +21,18 @@ export const getStatusTask = ({isFinished, date} : StatusReadProps) => {
   }
 
   return StatusTask.Current;
-
 };
 
 
 export const getClassNames = (usual: string, additional: AdditionalType[]) => {
   const addClasses = additional.map((item) => item.condition ? item.value : '').join(' ');
   return `${usual} ${addClasses}`;
+};
+
+export const getFileName = (dirName: string, file: File) => {
+  const {name, lastModified} = file;
+  const nameArr = name.split('.');
+  const ext = nameArr[nameArr.length - 1];
+  const newName = nameArr.slice(0, nameArr.length - 1).join('.');
+  return `${dirName}/${newName}-${lastModified}.${ext}`;
 };

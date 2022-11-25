@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { DESCRIPTION_LENGTH_IN_LIST } from '../../const';
-import { cutDescription } from '../../utils/util';
 import { ShowBtn } from '../show-btn/show-btn';
+import { cutDescription } from '../../utils/util';
+import { DESCRIPTION_LENGTH_IN_LIST } from '../../const';
 
 
 export const DescriptionRead = ({description} : {description : string | null}) => {

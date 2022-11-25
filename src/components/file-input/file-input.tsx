@@ -1,9 +1,9 @@
 import { ChangeEventHandler } from 'react';
 
+
 type FileInputProps = {
   files: string[] | string | undefined;
   onChange: (value: string) => void;
-
 }
 
 export const FileInput = ({files, onChange} : FileInputProps) => {

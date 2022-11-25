@@ -1,4 +1,3 @@
-
 type StatusUpdateProps = {
   isFinished: boolean;
   onChange: () => void;
@@ -9,5 +8,4 @@ export const StatusUpdate = ({isFinished, onChange} : StatusUpdateProps) => (
     <input type={'checkbox'} checked={isFinished} onChange={onChange}/>
       задача завершена
   </label>
-
 );

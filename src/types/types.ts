@@ -1,12 +1,17 @@
 
-export type TaskType = {
-  id: number| string | null;
+export type FileTask = { href: string; name: string };
+
+
+export type AddTaskType = {
   title: string;
   description: string;
   date: string;
-  files: string[] | string | undefined;
   isFinished: boolean;
+  files: FileTask[];
+
 }
+
+export type TaskType = AddTaskType & {id: string | null};
 
 export type StatusReadProps = {
   isFinished : boolean;
