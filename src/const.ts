@@ -3,7 +3,7 @@ import { TaskType } from './types/types';
 export const DESCRIPTION_LENGTH_IN_LIST = 40;
 export const SHORT_DESCRIPTION_LENGTH_IN_LIST = 30;
 
-export const DATE_FORMAT = 'YYYY-MM-DD';
+export const DATE_FORMAT = 'DD.MM.YYYY';
 
 export const enum StatusTask {
   Current = 'в процессе',
@@ -35,7 +35,7 @@ export const enum ErrorText {
   ServerFirst = 'Что-то пошло не так',
   ServerSecond = 'Попробуйте позже',
   DateFirst = 'Неправильная дата или формат',
-  DatSecond = 'Формат даты ГГГГ-ММ-ДД',
+  DatSecond = 'Формат даты: ДД.ММ.ГГГГ',
 }
 
 

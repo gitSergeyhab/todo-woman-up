@@ -29,6 +29,7 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
   const [errorServer, setErrorServer] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChangeStatus = () => setIsFinished((value) => !value);
 
@@ -37,6 +38,7 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
     setDescription('');
     setDate('');
     setIsFinished(false);
+    formRef.current?.reset();
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
@@ -65,10 +67,10 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
   const errorServerElement = errorServer ? <Errors errors={[ErrorText.ServerFirst, ErrorText.ServerSecond]}/> : null;
 
   return (
-    <form className='task__form' onSubmit={handleSubmit}>
+    <form className='task__form' onSubmit={handleSubmit} ref={formRef}>
       <div className='task__title-date'>
         <TextUpdate classes='task__title task__title--update' onChange={setTitle} text={title} placeholder={'Заголовок'}/>
-        <TextUpdate classes='task__date task__date--update' onChange={setDate} text={date} placeholder={'гггг-мм-дд'}/>
+        <TextUpdate classes='task__date task__date--update' onChange={setDate} text={date} placeholder={'дд.мм.гггг'}/>
       </div>
       <DescriptionUpdate classes='task__description task__description--update' onChange={setDescription} text={description}/>
       <input className='task__file task__file--update' type='file' id='file' name="file" ref={fileRef} multiple />
