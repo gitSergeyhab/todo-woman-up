@@ -10,10 +10,17 @@ export const TodoList = ({tasks} : {tasks: TaskType[]}) => {
 
   const todoElements = tasks.map((item) => <Task key={item.id} task={item} />);
 
+  const classNames = tasks.length ? 'todo-list' : 'todo-list todo-list--empty';
+
+  const emptyMessage = tasks.length ? null : <h2 className='empty-message'>Пока нет созданных задач</h2>;
+
   return (
-    <ul className='todo-list'>
-      <li className={'task task--new'}><TaskMutate onTurnToRead={() => null} task={EMPTY_TASK}/></li>
-      {todoElements}
-    </ul>
+    <div>
+      <ul className={classNames}>
+        <li className={'task task--new'}><TaskMutate onTurnToRead={() => null} task={EMPTY_TASK}/></li>
+        {todoElements}
+      </ul>
+      {emptyMessage}
+    </div>
   );
 };

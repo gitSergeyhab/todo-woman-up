@@ -15,15 +15,13 @@ function App(): JSX.Element {
 
   useEffect(() => readTasks(setTasks, setErrorServer), []);
 
-  const content = tasks.length ? <TodoList tasks={tasks}/> : null;
-  const loading = !errorServer && !tasks.length ? <Errors big errors={['Грузим', 'Ожидайте', 'Почти все...']}/> : null;
+  const content = <TodoList tasks={tasks}/> ;
   const error = errorServer ? <Errors big errors={[ErrorText.ServerFirst, ErrorText.ServerSecond]}/> : null;
 
 
   return (
     <main className='main'>
       {content}
-      {loading}
       {error}
     </main>
   );

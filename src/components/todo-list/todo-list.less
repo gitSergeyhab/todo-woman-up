@@ -1,8 +1,17 @@
 .todo-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2%;
+  row-gap: 1rem;
   margin: 0;
   padding: 0;
   list-style: none;
+
+  &--empty {
+    justify-content: center;
+  }
+}
+
+.empty-message {
+  text-align: center;
 }
