@@ -1,6 +1,6 @@
-import {initializeApp} from 'firebase/app';
-import {getFirestore} from 'firebase/firestore';
-import {firebaseConfig} from './super-secret-config';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { firebaseConfig } from './super-secret-config';
 import { getStorage } from 'firebase/storage';
 
 

@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { ShowBtn } from '../show-btn/show-btn';
 import { FileTask } from '../../types/types';
 
+/**
+ * возвращает название файла - срезает имя папки
+ * @param filePath - расположение файла: "папка/файл"
+ * @returns файл без папки
+ */
 
 const getFileName = (filePath: string) => {
   const filArr = filePath.split('/');

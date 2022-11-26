@@ -11,6 +11,12 @@ export const enum StatusTask {
   Finished = 'завершена'
 }
 
+export const StatusTaskClass = {
+  [StatusTask.Current]: '--current',
+  [StatusTask.Expired]: '--expired',
+  [StatusTask.Finished]: '--finished'
+} as const;
+
 export const enum ShowBtnName {
   Show = 'показать',
   Hide = 'скрыть'

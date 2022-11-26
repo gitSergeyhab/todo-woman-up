@@ -12,6 +12,17 @@ const todosCollection = collection(db, FIRESTORE_PATH_NAME) as CollectionReferen
 
 type ErrorType = Dispatch<SetStateAction<boolean>>
 
+/**
+ * создает новую задачу в firebase db
+ * @param task - объект с данными { title: string;
+    description: string;
+    date: string;
+    isFinished: boolean;
+    files: FileTask[];}
+ * @param clear - колбек ф-ция, очищающая инпут в случае выполнения
+ * @param setError колбек ф-ция, сигнализирующая об ошибке
+ */
+
 export const createTask = async(task: AddTaskType, clear: () => void, setError: ErrorType) => {
   try {
     await addDoc(collection(db, FIRESTORE_PATH_NAME), task);
@@ -22,6 +33,11 @@ export const createTask = async(task: AddTaskType, clear: () => void, setError: 
   }
 };
 
+/**
+ * запрос на чтение из firebase db
+ * @param setTasks - колбек ф-ция, добавляет задачи в стеййт в случае выполнения
+ * @param setError колбек ф-ция, сигнализирующая об ошибке
+ */
 
 export const readTasks = (setTasks: Dispatch<SetStateAction<TaskType[]>>, setError: ErrorType) => {
   try {
@@ -35,6 +51,19 @@ export const readTasks = (setTasks: Dispatch<SetStateAction<TaskType[]>>, setErr
   }
 };
 
+
+/**
+ * обновляет задачу в firebase db
+ * @param id - ID обновляемой задачи
+ * @param data  - объект с данными для обновления { title: string;
+    description: string;
+    date: string;
+    isFinished: boolean;
+    files: FileTask[];}
+ * @param setError - колбек ф-ция, сигнализирующая об ошибке
+ * @param setRead - колбек ф-ция, меняющая визуальную форму задачи с MUTATE на READ
+ */
+
 export const updateTask = async(id: string, data: AddTaskType, setError: ErrorType, setRead: () => void) => {
   try {
     const updatingTask = doc(db, `${FIRESTORE_PATH_NAME}/${id}`);
@@ -46,6 +75,11 @@ export const updateTask = async(id: string, data: AddTaskType, setError: ErrorTy
   }
 };
 
+/**
+ * удаляет задачу из firebase db
+ * @param id  - ID удаляемой задачи
+ * @param setError - колбек ф-ция, сигнализирующая об ошибке
+ */
 
 export const deleteTask = async(id: string, setError: ErrorType) => {
   try {
@@ -57,6 +91,14 @@ export const deleteTask = async(id: string, setError: ErrorType) => {
   }
 };
 
+
+/**
+ * загружает файл в firebase/storage и возвращает промис url с загруженым файлом
+ * @param dirName - имя папки файла
+ * @param file - загружаемый файл
+ * @returns url с загруженым файлом
+ */
+
 export const getHref = async(dirName: string, file: File) => {
 
   const filename = getFileName(dirName, file);
@@ -66,6 +108,14 @@ export const getHref = async(dirName: string, file: File) => {
 
   return url;
 };
+
+
+/**
+ * загружает файлы в firebase/storage и возвращает промис массив объектов {name, href}: - name имя файла, href - путь
+ * @param dirName  - имя папки файла
+ * @param files  - загружаемые файлы
+ * @returns массив {name, href}[]: - name имя файла, href - путь
+ */
 
 export const uploadFiles = async (dirName: string, files: FileList) => {
 
