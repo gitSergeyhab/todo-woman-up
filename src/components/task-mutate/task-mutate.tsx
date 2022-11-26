@@ -49,6 +49,8 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
       return setErrorDate(true);
     }
 
+    setErrorDate(false);
+
     if(title && description) {
       const newFiles = fileRef.current?.files;
 
