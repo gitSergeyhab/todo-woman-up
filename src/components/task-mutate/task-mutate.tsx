@@ -15,9 +15,10 @@ type TaskUpdateProps = {
   onTurnToRead: () => void;
 }
 
+
 export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
 
-  const {id, title: oldTitle, description: oldDescription, date: oldDate, isFinished: oldIsFinished} = task;
+  const {id, title: oldTitle, description: oldDescription, date: oldDate, isFinished: oldIsFinished, files} = task;
 
   const typeButtons = id ? TaskState.Update : TaskState.Create;
 
@@ -51,14 +52,14 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
     if(title && description) {
       const newFiles = fileRef.current?.files;
 
-      if (newFiles) {
-
+      if (newFiles && newFiles.length) {
         uploadFiles('files', newFiles).then((items) => {
           const data = {title, date, description, files: items, isFinished};
-          id ?
-            updateTask(id, data, setErrorServer, onTurnToRead) :
-            createTask(data, resetForm, setErrorServer);
+          id ? updateTask(id, data, setErrorServer, onTurnToRead) : createTask(data, resetForm, setErrorServer);
         });
+      } else {
+        const data = {title, date, description, files, isFinished};
+        id ? updateTask(id, data, setErrorServer, onTurnToRead) : createTask(data, resetForm, setErrorServer);
       }
     }
   };
