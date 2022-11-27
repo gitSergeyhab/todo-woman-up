@@ -6,13 +6,13 @@ dayjs.extend(customParseFormat);
 
 /**
  * проверяет просрочена ли задача
- * @param date - крайняя дата
+ * @param date - крайняя дата DD.MM.YYYY
  * @returns true / false - просрочена / нет
  */
 
 export const checkExpire = (date: string) => {
   const dateNow = dayjs();
-  return dateNow.diff(date, 'day') > 0;
+  return dateNow.diff(dayjs(date, DATE_FORMAT) , 'day') > 0;
 };
 
 /**
