@@ -23,13 +23,15 @@ type CBType = Dispatch<SetStateAction<boolean>>
  * @param setError колбек ф-ция, сигнализирующая об ошибке
  */
 
-export const createTask = async(task: AddTaskType, clear: () => void, setError: CBType) => {
+export const createTask = async(task: AddTaskType, clear: () => void, setError: CBType, setLoading: CBType) => {
   try {
     await addDoc(collection(db, FIRESTORE_PATH_NAME), task);
     clear();
     setError(false);
+    setLoading(false);
   } catch {
     setError(true);
+    setLoading(false);
   }
 };
 
@@ -67,14 +69,16 @@ export const readTasks = (setTasks: Dispatch<SetStateAction<TaskType[]>>, setErr
  * @param setRead - колбек ф-ция, меняющая визуальную форму задачи с MUTATE на READ
  */
 
-export const updateTask = async(id: string, data: AddTaskType, setError: CBType, setRead: () => void) => {
+export const updateTask = async(id: string, data: AddTaskType, setError: CBType, setRead: () => void, setLoading: CBType) => {
   try {
     const updatingTask = doc(db, `${FIRESTORE_PATH_NAME}/${id}`);
     await setDoc(updatingTask, data, { merge: true });
     setError(false);
+    setLoading(false);
     setRead();
   } catch {
     setError(true);
+    setLoading(false);
   }
 };
 
@@ -84,13 +88,15 @@ export const updateTask = async(id: string, data: AddTaskType, setError: CBType,
  * @param setError - колбек ф-ция, сигнализирующая об ошибке
  */
 
-export const deleteTask = async(id: string, setError: CBType) => {
+export const deleteTask = async(id: string, setError: CBType, setLoading: CBType) => {
   try {
     const deletingTask = doc(db, `${FIRESTORE_PATH_NAME}/${id}`);
     await deleteDoc(deletingTask);
     setError(false);
+    setLoading(false);
   } catch {
     setError(true);
+    setLoading(false);
   }
 };
 

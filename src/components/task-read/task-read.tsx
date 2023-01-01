@@ -19,11 +19,14 @@ export const TaskRead = ({task, onTurnToUpdate} : TaskReadProps) => {
 
   const {id, title, description, date, files, isFinished} = task;
   const [errorServer, setErrorServer] = useState(false);
+  const [loading, setLoading] = useState(false);
+
 
   const handleDeleteTaskClick: FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
+    setLoading(true);
     if (id) {
-      deleteTask(id, setErrorServer);
+      deleteTask(id, setErrorServer, setLoading);
     }
   };
 
@@ -36,7 +39,7 @@ export const TaskRead = ({task, onTurnToUpdate} : TaskReadProps) => {
       <p className='task__date' >{date}</p>
       <FilesRead files={files}/>
       <StatusRead isFinished={isFinished} date={date}/>
-      <ButtonBlock type={TaskState.Read} onTurnClick={onTurnToUpdate}/>
+      <ButtonBlock loading={loading} type={TaskState.Read} onTurnClick={onTurnToUpdate}/>
       {errorServerElement}
     </form>
   );

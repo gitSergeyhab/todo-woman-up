@@ -28,6 +28,7 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
   const [isFinished, setIsFinished] = useState(oldIsFinished);
   const [errorDate, setErrorDate] = useState(false);
   const [errorServer, setErrorServer] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -43,6 +44,7 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
   };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
+    setLoading(true);
     evt.preventDefault();
 
     if (!validateDate(date)) {
@@ -57,11 +59,11 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
       if (newFiles && newFiles.length) {
         uploadFiles('files', newFiles).then((items) => {
           const data = {title, date, description, files: items, isFinished};
-          id ? updateTask(id, data, setErrorServer, onTurnToRead) : createTask(data, resetForm, setErrorServer);
+          id ? updateTask(id, data, setErrorServer, onTurnToRead, setLoading) : createTask(data, resetForm, setErrorServer, setLoading);
         });
       } else {
         const data = {title, date, description, files, isFinished};
-        id ? updateTask(id, data, setErrorServer, onTurnToRead) : createTask(data, resetForm, setErrorServer);
+        id ? updateTask(id, data, setErrorServer, onTurnToRead, setLoading) : createTask(data, resetForm, setErrorServer, setLoading);
       }
     }
   };
@@ -78,7 +80,7 @@ export const TaskMutate = ({task, onTurnToRead} : TaskUpdateProps) => {
       <DescriptionUpdate classes='task__description task__description--update' onChange={setDescription} text={description}/>
       <input className='task__file task__file--update' type='file' id='file' name="file" ref={fileRef} multiple />
       <StatusUpdate isFinished={isFinished} onChange={handleChangeStatus}/>
-      <ButtonBlock type={typeButtons} onTurnClick={onTurnToRead}/>
+      <ButtonBlock type={typeButtons} loading={loading} onTurnClick={onTurnToRead}/>
       {errorDateElement}
       {errorServerElement}
     </form>
