@@ -10,7 +10,7 @@ import { ERROR_FILE_PATH, FIRESTORE_PATH_NAME } from '../const';
 
 const todosCollection = collection(db, FIRESTORE_PATH_NAME) as CollectionReference<AddTaskType>;
 
-type ErrorType = Dispatch<SetStateAction<boolean>>
+type CBType = Dispatch<SetStateAction<boolean>>
 
 /**
  * создает новую задачу в firebase db
@@ -23,7 +23,7 @@ type ErrorType = Dispatch<SetStateAction<boolean>>
  * @param setError колбек ф-ция, сигнализирующая об ошибке
  */
 
-export const createTask = async(task: AddTaskType, clear: () => void, setError: ErrorType) => {
+export const createTask = async(task: AddTaskType, clear: () => void, setError: CBType) => {
   try {
     await addDoc(collection(db, FIRESTORE_PATH_NAME), task);
     clear();
@@ -39,15 +39,18 @@ export const createTask = async(task: AddTaskType, clear: () => void, setError: 
  * @param setError колбек ф-ция, сигнализирующая об ошибке
  */
 
-export const readTasks = (setTasks: Dispatch<SetStateAction<TaskType[]>>, setError: ErrorType) => {
+export const readTasks = (setTasks: Dispatch<SetStateAction<TaskType[]>>, setError: CBType, setLoading: CBType) => {
   try {
     onSnapshot(todosCollection, (snapshot: QuerySnapshot<AddTaskType>) => {
       const todos = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
       setTasks(todos);
+      setError(false);
+      setLoading(false);
     });
-    setError(false);
+
   } catch {
     setError(true);
+    setLoading(false);
   }
 };
 
@@ -64,7 +67,7 @@ export const readTasks = (setTasks: Dispatch<SetStateAction<TaskType[]>>, setErr
  * @param setRead - колбек ф-ция, меняющая визуальную форму задачи с MUTATE на READ
  */
 
-export const updateTask = async(id: string, data: AddTaskType, setError: ErrorType, setRead: () => void) => {
+export const updateTask = async(id: string, data: AddTaskType, setError: CBType, setRead: () => void) => {
   try {
     const updatingTask = doc(db, `${FIRESTORE_PATH_NAME}/${id}`);
     await setDoc(updatingTask, data, { merge: true });
@@ -81,7 +84,7 @@ export const updateTask = async(id: string, data: AddTaskType, setError: ErrorTy
  * @param setError - колбек ф-ция, сигнализирующая об ошибке
  */
 
-export const deleteTask = async(id: string, setError: ErrorType) => {
+export const deleteTask = async(id: string, setError: CBType) => {
   try {
     const deletingTask = doc(db, `${FIRESTORE_PATH_NAME}/${id}`);
     await deleteDoc(deletingTask);

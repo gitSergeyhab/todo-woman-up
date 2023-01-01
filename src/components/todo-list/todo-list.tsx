@@ -12,7 +12,7 @@ export const TodoList = ({tasks} : {tasks: TaskType[]}) => {
 
   const classNames = tasks.length ? 'todo-list' : 'todo-list todo-list--empty';
 
-  const emptyMessage = tasks.length ? null : <h2 className='empty-message'>Пока нет созданных задач</h2>;
+  // const emptyMessage = tasks.length ? null : <h2 className='empty-message'>Пока нет созданных задач</h2>;
 
   return (
     <div>
@@ -20,7 +20,7 @@ export const TodoList = ({tasks} : {tasks: TaskType[]}) => {
         <li className={'task task--new'}><TaskMutate onTurnToRead={() => null} task={EMPTY_TASK}/></li>
         {todoElements}
       </ul>
-      {emptyMessage}
+      {/* {emptyMessage} */}
     </div>
   );
 };
